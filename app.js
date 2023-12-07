@@ -126,8 +126,8 @@ function drawCircle() {
     }
     ySpeed *= -1;
   }
+  //设置小球上下左右边界
   if (circle_x >= canvaswidth - radius) {
-    //设置小球上下左右边界
     xSpeed *= -1;
   }
   if (circle_x <= radius) {
