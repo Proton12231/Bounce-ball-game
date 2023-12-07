@@ -2,6 +2,8 @@ const c = document.getElementById("myCanvas");
 const canvasHeight = c.height;
 const canvaswidth = c.width;
 const ctx = c.getContext("2d");
+//统计小球击到的砖块数
+let count = 0;
 
 let circle_x = 160;
 let circle_y = 60;
@@ -50,7 +52,7 @@ class Brick {
 }
 
 //设定随机画砖块的循环
-for (let i = 0; i <= 10; i++) {
+for (let i = 0; i < 10; i++) {
   new Brick(getRandomARbitiry(0, 950), getRandomARbitiry(0, 450));
 }
 //设定长条移动监听器
@@ -88,6 +90,7 @@ function drawCircle() {
 
   brickArray.forEach((brick, index) => {
     if (brick.visible && brick.touchingBall(circle_x, circle_y)) {
+      count++;
       //碰到了小球后砖块不可见
       brick.visible = false;
       //设定球碰到砖块反弹
@@ -101,6 +104,10 @@ function drawCircle() {
         circle_x <= brick.x + brick.width + radius
       ) {
         xSpeed *= -1;
+      }
+      if (count == 10) {
+        alert("游戏结束");
+        clearInterval(game);
       }
     }
   });
