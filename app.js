@@ -40,9 +40,22 @@ function drawCircle() {
   ctx.stroke();
   ctx.fillStyle = "yellow";
   ctx.fill();
-
-  //设置小球上下左右边界
+  //增加小球碰到长条反弹
+  if (
+    circle_x >= ground_x - radius &&
+    circle_x <= ground_x + groundWidth + radius &&
+    circle_y >= ground_y - radius &&
+    circle_y <= ground_y + radius
+  ) {
+    if (ySpeed > 0) {
+      circle_y -= 40;
+    } else {
+      circle_y += 40;
+    }
+    ySpeed *= -1;
+  }
   if (circle_x >= canvaswidth - radius) {
+    //设置小球上下左右边界
     xSpeed *= -1;
   }
   if (circle_x <= radius) {
