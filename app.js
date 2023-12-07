@@ -37,6 +37,16 @@ class Brick {
     ctx.fillStyle = "orange";
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
+
+  //返回一个布尔值来确定球是否碰到了砖块
+  touchingBall(ball_x, ball_y) {
+    return (
+      ball_x >= this.x - radius &&
+      ball_x <= this.x + radius + this.width &&
+      ball_y >= this.y - radius &&
+      ball_y <= this.y + radius + this.height
+    );
+  }
 }
 
 //设定随机画砖块的循环
@@ -75,6 +85,25 @@ function drawCircle() {
   ctx.stroke();
   ctx.fillStyle = "yellow";
   ctx.fill();
+
+  brickArray.forEach((brick, index) => {
+    if (brick.visible && brick.touchingBall(circle_x, circle_y)) {
+      //碰到了小球后砖块不可见
+      brick.visible = false;
+      //设定球碰到砖块反弹
+      if (
+        circle_y >= brick.y + radius ||
+        circle_y < brick.y + brick.height + radius
+      ) {
+        ySpeed *= -1;
+      } else if (
+        circle_x >= brick.x + radius ||
+        circle_x <= brick.x + brick.width + radius
+      ) {
+        xSpeed *= -1;
+      }
+    }
+  });
 
   //增加小球碰到长条反弹
   if (
