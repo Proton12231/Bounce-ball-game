@@ -25,6 +25,19 @@ function drawCircle() {
   ctx.stroke();
   ctx.fillStyle = "yellow";
   ctx.fill();
+  //设置小球上下左右边界
+  if (circle_x >= canvaswidth - radius) {
+    xSpeed *= -1;
+  }
+  if (circle_x <= radius) {
+    xSpeed *= -1;
+  }
+  if (circle_y >= canvasHeight - radius) {
+    ySpeed *= -1;
+  }
+  if (circle_y <= radius) {
+    ySpeed *= -1;
+  }
 }
 
 let game = setInterval(drawCircle, 25);
